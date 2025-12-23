@@ -1,13 +1,27 @@
 spring:
     application:
         name: config-server
+    #    cloud:
+    #        config:
+    #            server:
+    #                git:
+    #                    uri: https://github.com/Malcolm-G/app-config
+    #    # Username and password in case repo is private. Add env variables so as to not commit credentials
+    #    #                    username: ${GIT_USER}
+    #    #                    password: ${GIT_TOKEN} uSE
+    profiles:
+        active: jdbc ## Specify profile because by default it tries to use git
+    datasource:
+        url: jdbc:mysql://localhost:3306/configdb
+        username: ${MYSQL_USER}
+        password: ${MYSQL_PASS}
+        driver-class-name: com.mysql.cj.jdbc.Driver
     cloud:
         config:
             server:
-                git:
-                    uri: https://github.com/Malcolm-G/app-config
-# Username and password in case repo is private. Add env variables so as to not commit credentials
-#                    username: ${GIT_USER}
-#                    password: ${GIT_TOKEN} uSE
+                jdbc:
+                    sql: "SELECT prop_key, prop_value FROM properties WHERE application = ? AND profile = ? AND label = ?"
+                    default-label: main
+
 server:
     port: 8888
