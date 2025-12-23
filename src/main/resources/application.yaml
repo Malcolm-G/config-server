@@ -1,0 +1,13 @@
+spring:
+    application:
+        name: config-server
+    cloud:
+        config:
+            server:
+                git:
+                    uri: https://github.com/Malcolm-G/app-config
+# Username and password in case repo is private. Add env variables so as to not commit credentials
+#                    username: ${GIT_USER}
+#                    password: ${GIT_TOKEN} uSE
+server:
+    port: 8888
