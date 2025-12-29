@@ -11,22 +11,34 @@ spring:
     #    #                    password: ${GIT_TOKEN} uSE
     profiles:
         active: native ## Specify profile because by default it tries to use git
-#    datasource:
-#        url: jdbc:mysql://localhost:3306/configdb
-#        username: ${MYSQL_USER}
-#        password: ${MYSQL_PASS}
-#        driver-class-name: com.mysql.cj.jdbc.Driver
-#    cloud:
-#        config:
-#            server:
-#                jdbc:
-#                    sql: "SELECT prop_key, prop_value FROM properties WHERE application = ? AND profile = ? AND label = ?"
-#                    default-label: main
+    #    datasource:
+    #        url: jdbc:mysql://localhost:3306/configdb
+    #        username: ${MYSQL_USER}
+    #        password: ${MYSQL_PASS}
+    #        driver-class-name: com.mysql.cj.jdbc.Driver
+    #    cloud:
+    #        config:
+    #            server:
+    #                jdbc:
+    #                    sql: "SELECT prop_key, prop_value FROM properties WHERE application = ? AND profile = ? AND label = ?"
+    #                    default-label: main
     cloud:
         config:
             server:
                 native:
-                    search-locations: classpath:/config
+                    search-locations: classpath:/config ##May not dynamically update on refreshes since the classes are bundled on initial startup. Youcan also use file as shown below
+                    #search-locations: file:///C:\Users\malco\OneDrive\Desktop\Coding\java\store\config-server\src\main\resources\config
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
 
 server:
     port: 8888

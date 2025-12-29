@@ -2,4 +2,10 @@ build:
     id: 101
     version: 1.2.3
     name: "NATIVE-Dev-Build"
-    type: "NATIVE Development Build"
+    type: "NATIVE Development Build 123"
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
